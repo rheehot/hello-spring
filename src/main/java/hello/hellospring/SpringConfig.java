@@ -1,36 +1,37 @@
 package hello.hellospring;
 
-import hello.hellospring.repository.JdbcMemberRepository;
-import hello.hellospring.repository.JdbcTeplateMemberRepository;
+import hello.hellospring.repository.JpaMemberRepository;
 import hello.hellospring.repository.MemberRepository;
+import hello.hellospring.repository.SpringDataJpaMemberRepository;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
 
 @Configuration
 public class SpringConfig {
 
-    private final DataSource dataSource;
+    private final SpringDataJpaMemberRepository springDataJpaMemberRepository;
 
     @Autowired
-    public SpringConfig(final DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SpringConfig(SpringDataJpaMemberRepository springDataJpaMemberRepository) {
+        this.springDataJpaMemberRepository = springDataJpaMemberRepository;
     }
-
-//    @Bean
-//    public MemberService memberService () {
-//        return new MemberService(this.memberRepository());
-//    }
-
 
     @Bean
-    public MemberRepository memberRepository() {
+    public MemberService memberService() {
+        return new MemberService(this.springDataJpaMemberRepository);
+    }
+
+    //@Bean
+    //public MemberRepository memberRepository() {
         //return new MemoryMemberRepository();
         //return new JdbcMemberRepository(this.dataSource);
-        return new JdbcTeplateMemberRepository(this.dataSource);
-    }
+        //return new JdbcTemplateMemberRepository(this.dataSource);
+        //return new JpaMemberRepository(this.em);
+
+    //}
 
 }

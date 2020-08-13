@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class JdbcTeplateMemberRepository implements MemberRepository {
+public class JdbcTemplateMemberRepository implements MemberRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public JdbcTeplateMemberRepository(final DataSource dataSource) {
+    public JdbcTemplateMemberRepository(final DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
